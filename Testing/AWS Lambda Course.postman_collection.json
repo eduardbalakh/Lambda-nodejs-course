@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "7ac89727-496e-4139-bfbd-29015099fa57",
+		"name": "AWS Lambda Course",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create order",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const baseUrl = 'iatjal2k7e.execute-api.us-east-1.amazonaws.com';",
+							"",
+							"pm.collectionVariables.set('env', baseUrl);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const orderId = pm.response.json().orderId;",
+							"",
+							"pm.collectionVariables.set('orderId', orderId);",
+							"",
+							"console.log(`orderId: ${orderId}`);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Konstantin890\",\n    \"address\": \"Somewhere elsewhere1\",\n    \"productId\": \"ProductId890\",\n    \"quantity\": \"890\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{env}}/dev/order",
+					"protocol": "https",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"dev",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fulfill order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": \"{{orderId}}\",\n    \"fulfillmentId\": \"For birthday\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{env}}/dev/order/fulfill",
+					"protocol": "https",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"dev",
+						"order",
+						"fulfill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delivered URL",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": \"{{orderId}}\",\n    \"deliveryCompanyId\": \"DeliveryCompany1\",\n    \"orderReview\": \"4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{env}}/dev/order/delivered",
+					"protocol": "https",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"dev",
+						"order",
+						"delivered"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "env",
+			"value": "iatjal2k7e.execute-api.us-east-1.amazonaws.com",
+			"type": "string"
+		},
+		{
+			"key": "orderId",
+			"value": ""
+		}
+	]
+}
