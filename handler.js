@@ -55,6 +55,34 @@ module.exports.notifyExternalParties = async (event) => {
   });
 }
 
+module.exports.notifyDeliveryCompany = async (event) => {
+
+  console.log('Call delivery company endpoint')
+
+  return 'done'
+}
+
+module.exports.orderDelivered = async (event) => {
+  const body = JSON.parse(event.body);
+  const orderId = body.orderId;
+  const deliveryCompanyId = body.deliveryCompanyId;
+  const orderReview = body.orderReview;
+
+  return deliveryManager.orderDelivered(orderId, deliveryCompanyId, orderReview).then(
+    () => {
+      return createResponse(200, `Order ${orderId} was delivered successfully by company ${deliveryCompanyId}.`);
+    }
+  ).catch(error => {
+    return createResponse(400, error);
+  });
+}
+
+module.exports.notifyCustomerService = async(event) => {
+  console.log('Call customer service endpoint');
+
+  return 'done';
+}
+
 function getCakeProducerPromise(records) {
   const ordersPlaced = records.filter(r => r.eventType === 'order_placed');
   if(ordersPlaced.length > 0) {
